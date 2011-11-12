@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Jaguar; 
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +26,7 @@ public class RobotTemplate extends IterativeRobot {
     Joystick armStick, driveStick;
     RobotDrive dt;
     Jaguar armJag; 
+    DigitalInput armLimit; 
     
     /**
      * This function is run when the robot is first started up and should be
@@ -35,6 +37,8 @@ public class RobotTemplate extends IterativeRobot {
         driveStick = new Joystick(2);
         dt = new RobotDrive(1,4,8,6);
         armJag = new Jaguar(5);
+        armLimit = new DigitalInput(14);
+        
     }
 
     /**
@@ -54,7 +58,10 @@ public class RobotTemplate extends IterativeRobot {
         rotation = -driveStick.getRawAxis(3);
         dt.mecanumDrive_Cartesian(x, rotation,y, 0);//documentaion is wrong
         double armSpeed = -armStick.getRawAxis(2);
-        armJag.set(armSpeed);
+        if(armLimit.get()|| (armSpeed >= 0)){
+            armJag.set(armSpeed);
+        }
+        System.out.println(armLimit.get());
        
     }
     
