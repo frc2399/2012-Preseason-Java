@@ -11,6 +11,7 @@ package edu.wpi.first.wpilibj.templates;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Jaguar; 
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,17 +22,19 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class RobotTemplate extends IterativeRobot {
     
-    Joystick leftStick, driveStick;
+    Joystick armStick, driveStick;
     RobotDrive dt;
+    Jaguar armJag; 
     
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-        leftStick = new Joystick(1);
+        armStick = new Joystick(1);
         driveStick = new Joystick(2);
         dt = new RobotDrive(1,4,8,6);
+        armJag = new Jaguar(5);
     }
 
     /**
@@ -49,7 +52,9 @@ public class RobotTemplate extends IterativeRobot {
         x = driveStick.getRawAxis(1); 
         y = -driveStick.getRawAxis(2);
         rotation = -driveStick.getRawAxis(3);
-        dt.mecanumDrive_Cartesian(x, rotation,y, 0);//documentaion is wrong 
+        dt.mecanumDrive_Cartesian(x, rotation,y, 0);//documentaion is wrong
+        double armSpeed = -armStick.getRawAxis(2);
+        armJag.set(armSpeed);
        
     }
     
