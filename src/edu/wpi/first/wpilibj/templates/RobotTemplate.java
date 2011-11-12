@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class RobotTemplate extends IterativeRobot {
     
-    Joystick leftStick, rightStick;
+    Joystick leftStick, driveStick;
     RobotDrive dt;
     
     /**
@@ -30,8 +30,8 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void robotInit() {
         leftStick = new Joystick(1);
-        rightStick = new Joystick(2);
-        dt = new RobotDrive(1,4,6,8);
+        driveStick = new Joystick(2);
+        dt = new RobotDrive(1,4,8,6);
     }
 
     /**
@@ -45,7 +45,12 @@ public class RobotTemplate extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        dt.tankDrive(leftStick, rightStick);
+        double x, y, rotation;
+        x = driveStick.getRawAxis(1); 
+        y = -driveStick.getRawAxis(2);
+        rotation = -driveStick.getRawAxis(3);
+        dt.mecanumDrive_Cartesian(x, rotation,y, 0);//documentaion is wrong 
+       
     }
     
 }
