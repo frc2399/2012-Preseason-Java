@@ -30,6 +30,8 @@
         Jaguar clawJag;
         DigitalInput armLimit; 
         AnalogChannel clawEncoder; 
+        boolean grab;
+        boolean release;
 
         /**
          * This function is run when the robot is first started up and should be
@@ -43,6 +45,8 @@
             armLimit = new DigitalInput(14);
             clawJag = new Jaguar (2);
             clawEncoder = new AnalogChannel (1);
+            grab = false;
+            release = false;
         }
 
         /**
@@ -73,6 +77,21 @@
                 clawJag.set(0);
             }
             System.out.println(clawEncoder.getVoltage());
+            if(armStick.getRawButton(4)){
+                grab = true;
+                release = false;
+            }
+            if(armStick.getRawButton(5)){
+                release = true;
+                grab = false;
+            }
+            double clawPosition = clawEncoder.getVoltage();
+            if(clawPosition > 2.1 && clawPosition < 4){
+                grab = false;
+            }
+            if(clawPosition > 4){
+                release = false;
+            }
         }
             
     }
