@@ -26,6 +26,7 @@
         Joystick armStick, driveStick;
         RobotDrive dt;
         Jaguar armJag; 
+        Jaguar clawJag;
         DigitalInput armLimit; 
 
         /**
@@ -38,7 +39,7 @@
             dt = new RobotDrive(1,4,8,6);
             armJag = new Jaguar(5);
             armLimit = new DigitalInput(14);
-
+            clawJag = new Jaguar (2);
         }
 
         /**
@@ -66,6 +67,12 @@
             armStick.getRawButton(2);
             System.out.println(armStick.getRawButton(3));
             System.out.println(armStick.getRawButton(2));
+            if(armStick.getRawButton(3)){
+                clawJag.set(0.5);
+            }else if(armStick.getRawButton(2)){
+                clawJag.set(-0.5);
+            }else{
+                clawJag.set(0);}
         }
 
     }
