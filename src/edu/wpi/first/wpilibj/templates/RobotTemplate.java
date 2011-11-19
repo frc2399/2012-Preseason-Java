@@ -65,11 +65,6 @@
             if(armLimit.get()|| (armSpeed >= 0)){
                 armJag.set(armSpeed);
             }
-            System.out.println(armLimit.get()); 
-            armStick.getRawButton(3);
-            armStick.getRawButton(2);
-            System.out.println(armStick.getRawButton(3));
-            System.out.println(armStick.getRawButton(2));
             if(armStick.getRawButton(3)){
                 clawJag.set(-0.5);//speeds had to be negated: 3 = up 2 = down
             }else if(armStick.getRawButton(2)){
