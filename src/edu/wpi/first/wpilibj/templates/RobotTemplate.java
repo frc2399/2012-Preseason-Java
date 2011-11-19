@@ -68,9 +68,9 @@
             System.out.println(armStick.getRawButton(3));
             System.out.println(armStick.getRawButton(2));
             if(armStick.getRawButton(3)){
-                clawJag.set(0.5);
+                clawJag.set(-0.5);//speeds had to be negated: 3 = up 2 = down
             }else if(armStick.getRawButton(2)){
-                clawJag.set(-0.5);
+                clawJag.set(0.5);
             }else{
                 clawJag.set(0);}
         }
