@@ -69,14 +69,14 @@
             if(armLimit.get()|| (armSpeed >= 0)){
                 armJag.set(armSpeed);
             }
-            if(armStick.getRawButton(3)){
-                clawJag.set(-0.5);//speeds had to be negated: 3 = up 2 = down
-            }else if(armStick.getRawButton(2)){
+            if(armStick.getRawButton(3)||grab){
+                clawJag.set(-0.5);//speeds negated; button3 = up button 2 = down
+            }else if(armStick.getRawButton(2)||release){
                 clawJag.set(0.5);
             }else{
                 clawJag.set(0);
             }
-            System.out.println(clawEncoder.getVoltage());
+            
             if(armStick.getRawButton(4)){
                 grab = true;
                 release = false;
@@ -85,13 +85,15 @@
                 release = true;
                 grab = false;
             }
-            double clawPosition = clawEncoder.getVoltage();
+            double clawPosition = clawEncoder.getAverageVoltage();
             if(clawPosition > 2.1 && clawPosition < 4){
                 grab = false;
+                //System.out.println(clawPosition);
             }
-            if(clawPosition > 4){
+            if(clawPosition > 4 || clawPosition < 0.2){
                 release = false;
             }
+            System.out.println(clawEncoder.getAverageBits());
         }
             
     }
