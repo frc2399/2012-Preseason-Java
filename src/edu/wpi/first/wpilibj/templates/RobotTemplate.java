@@ -13,6 +13,7 @@
     import edu.wpi.first.wpilibj.RobotDrive;
     import edu.wpi.first.wpilibj.Jaguar; 
     import edu.wpi.first.wpilibj.DigitalInput;
+    import edu.wpi.first.wpilibj.AnalogChannel;
 
     /**
      * The VM is configured to automatically run this class, and to call the
@@ -28,6 +29,7 @@
         Jaguar armJag; 
         Jaguar clawJag;
         DigitalInput armLimit; 
+        AnalogChannel clawEncoder; 
 
         /**
          * This function is run when the robot is first started up and should be
@@ -40,6 +42,7 @@
             armJag = new Jaguar(5);
             armLimit = new DigitalInput(14);
             clawJag = new Jaguar (2);
+            clawEncoder = new AnalogChannel (1);
         }
 
         /**
@@ -72,7 +75,9 @@
             }else if(armStick.getRawButton(2)){
                 clawJag.set(0.5);
             }else{
-                clawJag.set(0);}
+                clawJag.set(0);
+            }
+            System.out.println(clawEncoder.getVoltage());
         }
-
+            
     }
